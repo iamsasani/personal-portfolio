@@ -7,7 +7,8 @@ import Projects from "./Projects";
 import ExperienceSection from "../components/Main/ExperienceSection";
 import Experiences from "./Experiences";
 import Resume from "./Resume";
-
+import AdminLogin from "./AdminLogin";
+import AdminDashboard from "./AdminDashboard";
 function Home() {
   return (
     <>
@@ -30,6 +31,8 @@ function Home() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/experiences" element={<Experiences />} />
           <Route path="/resume" element={<Resume />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </Router>
     </>
