@@ -13,11 +13,10 @@ const Navbar = () => {
   return (
     <nav className="fixed left-0 top-0 z-50 w-full border-b border-black/10 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:px-10">
-
         {/* Profile + Name */}
         <Link to="/" className="flex items-center gap-3">
           <img
-            src="/profile.jpg"
+            src={`${import.meta.env.BASE_URL}profile.jpg`}
             alt="Mohammad Mehdi Sasanian"
             className="h-10 w-10 rounded-full object-cover"
           />
@@ -94,4 +93,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

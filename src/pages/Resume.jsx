@@ -68,7 +68,7 @@ const Resume = () => {
 
             {/* Download Button */}
             <a
-              href="/resume.pdf"
+              href={`${import.meta.env.BASE_URL}resume.pdf`}
               download
               className="group inline-flex w-fit items-center gap-4 border border-[#222222] px-6 py-3 text-sm uppercase tracking-[0.15em] transition duration-300 hover:bg-[#222222] hover:text-white"
             >

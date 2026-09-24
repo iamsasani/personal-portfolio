@@ -27,7 +27,7 @@ const Projects = () => {
       "API",
     ],
 
-    image: "/popcorndb.png",
+    image: `${import.meta.env.BASE_URL}popcorndb.png`,
 
     liveUrl:
       "https://popcorndb.workwithsasan.workers.dev/",
