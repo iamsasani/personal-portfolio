@@ -292,7 +292,7 @@ const Resume = () => {
           </div>
 
           <div>
-            <h2 className="max-w-3xl text-4xl font-semibold tracking-[-0.05em] md:text-6xl">
+            <h2 className="max-w-3xl text-4xl font-semibold tracking-tighter md:text-6xl">
               LET&apos;S WORK
               <br />
               <span className="text-[#777777]">TOGETHER.</span>
