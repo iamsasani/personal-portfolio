@@ -1,0 +1,31 @@
+import Header from "../components/header/Header";
+import Navbar from "../components/header/navbar";
+import ProjectCard from "../components/Main/ProjectCard";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import Projects from "./Projects";
+
+function Home() {
+  return (
+    <>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Navbar />
+                <Header />
+                <main className="mx-auto max-w-7xl px-6 py-24">
+                  <ProjectCard />
+                </main>
+              </>
+            }
+          />
+          <Route path="/projects" element={<Projects />} />
+        </Routes>
+      </Router>
+    </>
+  );
+}
+
+export default Home;
