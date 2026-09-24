@@ -1,13 +1,13 @@
-
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { title: "Experiences", href: "#experiences" },
-    { title: "Projects", href: "#projects" },
-    { title: "Resume", href: "#resume" },
+    { title: "Experiences", path: "/experiences" },
+    { title: "Projects", path: "/projects" },
+    { title: "Resume", path: "/resume" },
   ];
 
   return (
@@ -15,30 +15,30 @@ const Navbar = () => {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:px-10">
 
         {/* Profile + Name */}
-        <a href="#" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3">
           <img
             src="/profile.jpg"
             alt="Mohammad Mehdi Sasanian"
-            className="h-10 w-10 rounded-full object-cover "
+            className="h-10 w-10 rounded-full object-cover"
           />
 
           <span className="text-sm font-semibold uppercase tracking-[0.15em] text-[#222222]">
             SASAN
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden items-center gap-10 md:flex">
           {menuItems.map((item) => (
-            <a
+            <Link
               key={item.title}
-              href={item.href}
+              to={item.path}
               className="group relative text-sm uppercase tracking-[0.12em] text-[#444444] transition-colors duration-300 hover:text-black"
             >
               {item.title}
 
               <span className="absolute -bottom-2 left-0 h-px w-0 bg-[#222222] transition-all duration-300 group-hover:w-full" />
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -78,14 +78,14 @@ const Navbar = () => {
       >
         <div className="flex flex-col px-6 py-4">
           {menuItems.map((item) => (
-            <a
+            <Link
               key={item.title}
-              href={item.href}
+              to={item.path}
               onClick={() => setIsOpen(false)}
               className="border-b border-black/10 py-4 text-sm uppercase tracking-[0.12em] text-[#444444] transition-colors duration-300 hover:text-black"
             >
               {item.title}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

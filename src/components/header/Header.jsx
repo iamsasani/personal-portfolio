@@ -90,7 +90,7 @@ const Header = () => {
             onClick={handleScrollToExperiences}
             className="group flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#888888] transition-colors duration-300 hover:text-[#222222]"
           >
-            Scroll to explore
+            Scroll my Experiences
 
             <span className="transition-transform duration-300 group-hover:translate-y-1">
               ↓
