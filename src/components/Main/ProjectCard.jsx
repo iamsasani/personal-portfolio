@@ -47,7 +47,7 @@ const ProjectCard = () => {
                 {["React", "Tailwind CSS", "JavaScript", "API"].map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-full border border-black/10 px-3 py-1.5 text-xs uppercase tracking-[0.1em] text-[#555555]"
+                    className="rounded-full border border-black/10 px-3 py-1.5 text-xs uppercase tracking-widest text-[#555555]"
                   >
                     {tech}
                   </span>

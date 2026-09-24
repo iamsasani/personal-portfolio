@@ -40,7 +40,18 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-
+        <Link
+          to="/"
+          onClick={() => {
+            setTimeout(() => {
+              document
+                .getElementById("contact")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }, 100);
+          }}
+        >
+          Contact
+        </Link>
         {/* Mobile Menu Button */}
         <button
           type="button"
