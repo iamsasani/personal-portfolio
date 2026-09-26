@@ -85,7 +85,7 @@ const Contact = () => {
         {/* Section Header */}
         <div className="mb-16 border-b border-black/10 pb-6">
           <p className="mb-3 text-xs uppercase tracking-[0.25em] text-[#888888]">
-            04 / Contact
+            03 / Contact
           </p>
 
           <h2 className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl">
