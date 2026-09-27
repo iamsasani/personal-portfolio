@@ -1,14 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+const API_URL = "https://portfolio-api.workwithsasan.workers.dev";
+
+const defaultProfile = {
+  name: "Mohammad Mehdi Sasanian",
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [profile, setProfile] = useState(defaultProfile);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/profile`);
+
+        if (!response.ok) {
+          throw new Error("Failed to load profile");
+        }
+
+        const data = await response.json();
+
+        if (data?.profile) {
+          setProfile({
+            ...defaultProfile,
+            ...data.profile,
+          });
+        }
+      } catch (error) {
+        console.error("Profile fetch error:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const menuItems = [
     { title: "Experiences", path: "/experiences" },
     { title: "Projects", path: "/projects" },
     { title: "Resume", path: "/resume" },
   ];
+
+  const nameParts = profile.name.trim().split(/\s+/);
+
+  const shortName =
+    nameParts.length >= 2
+      ? `${nameParts[0]} ${nameParts[nameParts.length - 1]}`
+      : profile.name;
 
   return (
     <nav className="fixed left-0 top-0 z-50 w-full border-b border-black/10 bg-white/90 backdrop-blur-md">
@@ -22,12 +61,12 @@ const Navbar = () => {
         >
           <img
             src="/profile.jpg"
-            alt="Mohammad Mehdi Sasanian"
+            alt={profile.name}
             className="h-10 w-10 rounded-full object-cover"
           />
 
-          <span className="text-sm font-semibold uppercase tracking-[0.15em] text-[#222222]">
-            SASAN
+          <span className="max-w-45 truncate text-sm font-semibold uppercase tracking-[0.12em] text-[#222222] sm:max-w-none">
+            {shortName}
           </span>
         </Link>
 
