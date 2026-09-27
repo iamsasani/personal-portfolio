@@ -1,6 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const API_URL = "https://portfolio-api.workwithsasan.workers.dev";
+
+const defaultProfile = {
+  github_url: "https://github.com/iamsasani",
+  telegram_url: "https://t.me/m_sasanian",
+  email: "",
+};
 
 const Contact = () => {
+  const [profile, setProfile] = useState(defaultProfile);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -9,10 +19,36 @@ const Contact = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+
   const [status, setStatus] = useState({
     type: "",
     message: "",
   });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/profile`);
+
+        if (!response.ok) {
+          throw new Error("Failed to load profile");
+        }
+
+        const data = await response.json();
+
+        if (data?.profile) {
+          setProfile({
+            ...defaultProfile,
+            ...data.profile,
+          });
+        }
+      } catch (error) {
+        console.error("Profile fetch error:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,16 +70,13 @@ const Contact = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-         "https://portfolio-api.workwithsasan.workers.dev/api/messages",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/messages`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
 
@@ -67,8 +100,7 @@ const Contact = () => {
 
       setStatus({
         type: "error",
-        message:
-          "Unable to send your message. Please try again.",
+        message: "Unable to send your message. Please try again.",
       });
     } finally {
       setIsLoading(false);
@@ -81,7 +113,6 @@ const Contact = () => {
       className="bg-white px-6 py-24 text-[#222222] md:px-10 md:py-32 lg:px-16"
     >
       <div className="mx-auto max-w-7xl">
-
         {/* Section Header */}
         <div className="mb-16 border-b border-black/10 pb-6">
           <p className="mb-3 text-xs uppercase tracking-[0.25em] text-[#888888]">
@@ -94,50 +125,56 @@ const Contact = () => {
         </div>
 
         <div className="grid gap-16 lg:grid-cols-[0.7fr_1.3fr]">
-
           {/* Left */}
           <div>
             <h3 className="max-w-md text-4xl font-semibold tracking-tighter md:text-5xl">
               LET&apos;S WORK
               <br />
-              <span className="text-[#777777]">
-                TOGETHER.
-              </span>
+              <span className="text-[#777777]">TOGETHER.</span>
             </h3>
 
             <p className="mt-6 max-w-md text-base leading-8 text-[#666666]">
-              Have a project, opportunity or question?
-              Send me a message and I&apos;ll get back to you.
+              Have a project, opportunity or question? Send me a message and
+              I&apos;ll get back to you.
             </p>
 
             {/* Contact Links */}
             <div className="mt-10 space-y-4">
-              <a
-                href="https://github.com/iamsasani"
-                target="_blank"
-                rel="noreferrer"
-                className="block text-sm uppercase tracking-[0.12em] text-[#666666] transition hover:text-black"
-              >
-                GitHub ↗
-              </a>
+              {profile.github_url && (
+                <a
+                  href={profile.github_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block text-sm uppercase tracking-[0.12em] text-[#666666] transition hover:text-black"
+                >
+                  GitHub →
+                </a>
+              )}
 
-              <a
-                href="https://t.me/m_sasanian"
-                target="_blank"
-                rel="noreferrer"
-                className="block text-sm uppercase tracking-[0.12em] text-[#666666] transition hover:text-black"
-              >
-                Telegram ↗
-              </a>
+              {profile.telegram_url && (
+                <a
+                  href={profile.telegram_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block text-sm uppercase tracking-[0.12em] text-[#666666] transition hover:text-black"
+                >
+                  Telegram →
+                </a>
+              )}
+
+              {profile.email && (
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="block text-sm uppercase tracking-[0.12em] text-[#666666] transition hover:text-black"
+                >
+                  Email →
+                </a>
+              )}
             </div>
           </div>
 
           {/* Right - Form */}
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-6"
-          >
-
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name */}
             <div>
               <label
@@ -225,9 +262,7 @@ const Contact = () => {
             {status.message && (
               <p
                 className={`text-sm ${
-                  status.type === "success"
-                    ? "text-green-600"
-                    : "text-red-500"
+                  status.type === "success" ? "text-green-600" : "text-red-500"
                 }`}
               >
                 {status.message}
